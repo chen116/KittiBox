@@ -170,7 +170,7 @@ def main(_):
     pred_boxes = prediction['pred_boxes_new']
     pred_confidences = prediction['pred_confidences']
     print('asdffffffffffffffffffffffffffffffffffff')
-    print(pred_boxes,pred_confidences)
+    print(pred_boxes,pred_confidences,hypes["image_height"],hypes["image_width"])
 
     (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,
                                                      pred_confidences],
