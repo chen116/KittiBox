@@ -169,6 +169,8 @@ def main(_):
     # Run KittiBox model on image
     pred_boxes = prediction['pred_boxes_new']
     pred_confidences = prediction['pred_confidences']
+    print('asdffffffffffffffffffffffffffffffffffff')
+    print(pred_boxes,pred_confidences)
 
     (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,
                                                      pred_confidences],
