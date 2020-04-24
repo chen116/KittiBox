@@ -38,6 +38,14 @@ logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',
 
 # https://github.com/tensorflow/tensorflow/issues/2034#issuecomment-220820070
 import numpy as np
+from functools import partial
+
+# save np.load
+np_load_old = partial(np.load)
+
+# modify the default parameters of np.load
+np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
+
 import scipy as scp
 import scipy.misc
 import tensorflow as tf
@@ -214,6 +222,6 @@ def main(_):
                     "multiple images see:")
     logging.warning("https://github.com/MarvinTeichmann/KittiBox/"
                     "issues/15#issuecomment-301800058")
-
+    np.load = np_load_old
 if __name__ == '__main__':
     tf.app.run()
