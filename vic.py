@@ -125,7 +125,7 @@ def main(_):
     else:
         logging.info("Using weights found in {}".format(FLAGS.logdir))
         logdir = FLAGS.logdir
-        
+
     saver = tf.train.Saver()
     with tf.Session() as sess:
     # Restore variables from disk.
@@ -139,9 +139,9 @@ def main(_):
     image_pl = tf.placeholder(tf.float32)
     # Load and resize input image
     image = scp.misc.imread(input_image)
-    image = scp.misc.imresize(image, (hypes["image_height"],
-                                      hypes["image_width"]),
-                              interp='cubic')
+    # image = scp.misc.imresize(image, (hypes["image_height"],
+    #                                   hypes["image_width"]),
+    #                           interp='cubic')
     feed = {image_pl: image}
 
     # Run KittiBox model on image
