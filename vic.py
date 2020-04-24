@@ -125,40 +125,18 @@ def main(_):
     else:
         logging.info("Using weights found in {}".format(FLAGS.logdir))
         logdir = FLAGS.logdir
-
-    # Loading hyperparameters from logdir
-    hypes = tv_utils.load_hypes_from_logdir(logdir, base_path='hypes')
-
-    logging.info("Hypes loaded successfully.")
-
-    # Loading tv modules (encoder.py, decoder.py, eval.py) from logdir
-    modules = tv_utils.load_modules_from_logdir(logdir)
-    logging.info("Modules loaded successfully. Starting to build tf graph.")
-
-    # Create tf graph and build module.
-    with tf.Graph().as_default():
-        # Create placeholder for input
-        image_pl = tf.placeholder(tf.float32)
-        image = tf.expand_dims(image_pl, 0)
-
-        # build Tensorflow graph using the model from logdir
-        prediction = core.build_inference_graph(hypes, modules,
-                                                image=image)
-
-        logging.info("Graph build successfully.")
-
-        # Create a session for running Ops on the Graph.
-        sess = tf.Session()
-        saver = tf.train.Saver()
-
-        # Load weights from logdir
-        core.load_weights(logdir, sess, saver)
-
-        logging.info("Weights loaded successfully.")
+        
+    saver = tf.train.Saver()
+    with tf.Session() as sess:
+    # Restore variables from disk.
+        saver.restore(sess, "./saved_model.ckpt")
 
     input_image = FLAGS.input_image
     logging.info("Starting inference using {} as input".format(input_image))
 
+
+    
+    image_pl = tf.placeholder(tf.float32)
     # Load and resize input image
     image = scp.misc.imread(input_image)
     image = scp.misc.imresize(image, (hypes["image_height"],
