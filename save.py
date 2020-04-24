@@ -154,9 +154,9 @@ def main(_):
 
         # Load weights from logdir
         core.load_weights(logdir, sess, saver)
-        logging.info("Weights loaded successfully.")
+        
         save_path = saver.save(sess, "./saved_model.ckpt")
-
+        logging.info("saved loaded successfully.")
 
     exit(1)
 
