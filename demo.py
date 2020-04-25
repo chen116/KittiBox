@@ -161,9 +161,7 @@ def main(_):
 
     # Load and resize input image
     image = scp.misc.imread(input_image)
-    image = scp.misc.imresize(image, (hypes["image_height"],
-                                      hypes["image_width"]),
-                              interp='cubic')
+#     image = scp.misc.imresize(image, (hypes["image_height"], hypes["image_width"]),interp='cubic')
     feed = {image_pl: image}
 
     # Run KittiBox model on image
