@@ -178,6 +178,7 @@ def main(_):
             start = timer()
         (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,pred_confidences],feed_dict=feed)
     end = timer()
+    print((end - start)/100 )
     # Apply non-maximal suppression
     # and draw predictions on the image
     output_image, rectangles = kittibox_utils.add_rectangles(
