@@ -49,7 +49,7 @@ np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
 import scipy as scp
 import scipy.misc
 import tensorflow as tf
-
+from timeit import default_timer as timer
 
 flags = tf.app.flags
 FLAGS = flags.FLAGS
@@ -172,10 +172,12 @@ def main(_):
     print('asdffffffffffffffffffffffffffffffffffff')
     print(pred_boxes,pred_confidences,hypes["image_height"],hypes["image_width"])
 
+    start = timer()
     (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,
                                                      pred_confidences],
                                                     feed_dict=feed)
-
+    end = timer()
+   
     # Apply non-maximal suppression
     # and draw predictions on the image
     output_image, rectangles = kittibox_utils.add_rectangles(
@@ -225,5 +227,6 @@ def main(_):
     logging.warning("https://github.com/MarvinTeichmann/KittiBox/"
                     "issues/15#issuecomment-301800058")
     np.load = np_load_old
+    print(end - start)
 if __name__ == '__main__':
     tf.app.run()
