@@ -173,7 +173,7 @@ def main(_):
     print(pred_boxes,pred_confidences,hypes["image_height"],hypes["image_width"])
 
     start = timer()
-    for i in xrange(101):
+    for i in range(101):
         if i==1:
             start = timer()
         (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,pred_confidences],feed_dict=feed)
