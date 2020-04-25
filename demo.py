@@ -173,11 +173,11 @@ def main(_):
     print(pred_boxes,pred_confidences,hypes["image_height"],hypes["image_width"])
 
     start = timer()
-    (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,
-                                                     pred_confidences],
-                                                    feed_dict=feed)
+    start_time = time()
+    for i in xrange(100):
+        (np_pred_boxes, np_pred_confidences) = sess.run([pred_boxes,pred_confidences],feed_dict=feed)
+    total_time = (time() - start_time)/100.0
     end = timer()
-   
     # Apply non-maximal suppression
     # and draw predictions on the image
     output_image, rectangles = kittibox_utils.add_rectangles(
@@ -227,6 +227,6 @@ def main(_):
     logging.warning("https://github.com/MarvinTeichmann/KittiBox/"
                     "issues/15#issuecomment-301800058")
     np.load = np_load_old
-    print(end - start)
+    print((end - start)/100  ,total_time)
 if __name__ == '__main__':
     tf.app.run()
